@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Larre Dynamic</Name>
+  <Author>StormCircuit</Author>
+  <Version>0</Version>
+  <Description>Allows Cargo Larre to pick up slots from Dynamic Things
+  </Description>
+  <ChangeLog xsi:nil="true" />
+  <IsBetaProgramMod>false</IsBetaProgramMod>
+  <Tags />
+  <InGameDescription xsi:nil="true" />
+</ModMetadata>
