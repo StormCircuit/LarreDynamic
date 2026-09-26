@@ -1,4 +1,5 @@
 using System.Reflection;
+using System;
 using Assets.Scripts.GridSystem;
 using Assets.Scripts.Objects;
 using Assets.Scripts.Objects.Pipes;
@@ -91,12 +92,17 @@ namespace LarreDynamic.Patches
       }
 
       Vector3 scanOrigin = arm.Transform.position - arm.Transform.up * 0.25f;
-      return DynamicThingScanner.TryFindNearestWithSlots(scanOrigin, DynamicThingScanRadius, out target);
+      return DynamicThingScanner.TryFindNearestWithSlots(scanOrigin, DynamicThingScanRadius, IsSupportedRobot, out target);
+    }
+
+    private static bool IsSupportedRobot(DynamicThing target)
+    {
+      return target is RobotMining || string.Equals(target.PrefabName, "robotDiRCI", StringComparison.Ordinal);
     }
 
     private static bool CanAccess(DynamicThing target, int slotIndex, Slot slot)
     {
-      bool hiddenSlotAllowed = target is RobotMining && slotIndex >= 0 && slotIndex <= 1;
+      bool hiddenSlotAllowed = IsSupportedRobot(target) && slotIndex >= 0 && slotIndex <= 1;
       return slot != null && slot.Type != Slot.Class.Plant && slot.IsInteractable && !slot.IsLocked && (hiddenSlotAllowed || !slot.HidesOccupant);
     }
 

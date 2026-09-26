@@ -9,7 +9,7 @@ namespace LarreDynamic.Patches
     private const int MaxColliders = 64;
     private static readonly Collider[] ColliderBuffer = new Collider[MaxColliders];
 
-    public static bool TryFindNearestWithSlots(Vector3 origin, float radius, out DynamicThing result)
+    public static bool TryFindNearestWithSlots(Vector3 origin, float radius, Func<DynamicThing, bool> isCandidate, out DynamicThing result)
     {
       result = null;
       if (radius <= 0f)
@@ -33,7 +33,7 @@ namespace LarreDynamic.Patches
           DynamicThing candidate = collider != null
             ? collider.GetComponentInParent<DynamicThing>()
             : null;
-          if (candidate == null || candidate.BeingDestroyed || candidate.Slots == null || candidate.Slots.Count == 0)
+          if (candidate == null || candidate.BeingDestroyed || candidate.Slots == null || candidate.Slots.Count == 0 || !isCandidate(candidate))
           {
             continue;
           }
