@@ -10,7 +10,7 @@ namespace LarreDynamic
     {
         public const string pluginGuid = "com.larre.larredynamic";
         public const string pluginName = "LarreDynamic";
-        public const string pluginVersion = "0.0.0";
+        public const string pluginVersion = "1.0.0";
         public static void Log(string line)
         {
             Debug.Log("[" + pluginName + "]: " + line);

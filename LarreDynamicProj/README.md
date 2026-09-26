@@ -2,7 +2,7 @@
 
 Stationeers BepInEx/Harmony mod project.
 
-- Version: `0.0.0`
+- Version: `1.0.0`
 - Target framework: `.NET Standard 2.1`
 - Entry point: `BepInEx.cs`
 
