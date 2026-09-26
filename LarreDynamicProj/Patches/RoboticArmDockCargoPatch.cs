@@ -92,7 +92,13 @@ namespace LarreDynamic.Patches
       }
 
       Vector3 scanOrigin = arm.Transform.position - arm.Transform.up * 0.25f;
-      return DynamicThingScanner.TryFindNearestWithSlots(scanOrigin, DynamicThingScanRadius, IsSupportedRobot, out target);
+      DynamicThing excluded = instance.Slots[0].Get<DynamicThing>();
+      if (DynamicThingScanner.TryFindNearestWithSlots(scanOrigin, DynamicThingScanRadius, IsSupportedRobot, excluded, out target))
+      {
+        return true;
+      }
+
+      return DynamicThingScanner.TryFindNearestWithSlots(scanOrigin, DynamicThingScanRadius, IsGenericTarget, excluded, out target);
     }
 
     private static bool IsSupportedRobot(DynamicThing target)
@@ -100,10 +106,24 @@ namespace LarreDynamic.Patches
       return target is RobotMining || string.Equals(target.PrefabName, "robotDiRCI", StringComparison.Ordinal);
     }
 
+    private static bool IsGenericTarget(DynamicThing target)
+    {
+      return true;
+    }
+
     private static bool CanAccess(DynamicThing target, int slotIndex, Slot slot)
     {
-      bool hiddenSlotAllowed = IsSupportedRobot(target) && slotIndex >= 0 && slotIndex <= 1;
-      return slot != null && slot.Type != Slot.Class.Plant && slot.IsInteractable && !slot.IsLocked && (hiddenSlotAllowed || !slot.HidesOccupant);
+      if (slot == null || !slot.IsInteractable || slot.IsLocked)
+      {
+        return false;
+      }
+
+      if (IsSupportedRobot(target))
+      {
+        return slotIndex >= 0 && slotIndex <= 1;
+      }
+
+      return true;
     }
 
   }
