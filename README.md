@@ -1,10 +1,13 @@
 # LarreDynamic
 
-Stationeers BepInEx/Harmony mod project.
+Stationeers mod that allows Larre to interact with all Dynamic Things with special handling for Aimee, Dirci, and Atmospheric Filtration devices.
+
+For those:
+Aimee/Aimee - Restricted to interacting with battery and IC10 slot.
+Atmospherics - Now interacts with the gas filter slots and ic10 slot. IC10 slot must be open for interaction to work.
 
 - Version: `1.0.0`
-- Target framework: `.NET Standard 2.1`
-- Entry point: `BepInEx.cs`
+
 
 ## Build
 
